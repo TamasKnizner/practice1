@@ -15,7 +15,7 @@ Ezeknek célszerű külön osztályokat létrehozni, amik a Unit-ból származna
 A Unit ősosztály csak életerővel (`hitPoints`) rendelkezik, ami maximum 1000 lehet, valamint egy `isDead()` metódussal, ami igazzal tér vissza, ha a `hitPoints` kisebb vagy egyenlő nullával.
 A Unit példányok builder pattern segítségével készüljenek (ez lehet pl az adott objektum belső osztálya is).
 
-Hint: készíts néhány config objektumot (beant), amikbe leírod a unitok tulajdonságait és a buildert azzal az adott objektummal inicializálod és a `build()` metódus lesz az adott Unit bean `factory-method`-ja.
+Hint: készíts néhány config objektumot (beant), amikbe leírod a unitok tulajdonságait és a buildert azzal az adott objektummal inicializálod és a `build()` metódus lesz az adott Unit `factory-method`-ja.
 
 ## Interfacek
 Unitokhoz:
@@ -26,7 +26,7 @@ Unitokhoz:
 ## Mechanizmus
 Az, hogy melyik unit egy körben mit csinál strategy-k alapján fog eldőlni (strategy pattern). Adott három interface, ami a három különböző típusú unit strategyjének felel meg és az ő különböző implementációik a unitok döntési stratégiáik (ezek is beanek).
 
-A metódusok praktikusan úgy néznek ki, hogy `Unit get<Heal/Guard/Attact>Target()`.
+A metódusok praktikusan úgy néznek ki, hogy `Healable/Guardable/Attackable get<Heal/Guard/Attact>Target(Army army)`.
 
 ### HealStrategy
 * **LowestHpHealStrategy**: a legkisebb HP-val rendelkező unitot heali
@@ -51,7 +51,7 @@ Ezek csak ajánlatok, kitalálhatsz saját strategyket is.
 **Na de hogyan használjuk ezeket?**
 
 Minden **Army** objektumnak vannak servicei, amik kiszámolják egy adott strategy alapján, hogy adott unitnak mit kell tennie.
-Pl: **HealTargetService** -> `Unit getHealTarget(HealStrategy healStrategy)`. Értelemszerűen három ilyen service van (Heal, Guard, Attack).
+Pl: **HealTargetService** -> `Unit getHealTarget(HealStrategy healStrategy)`. Értelemszerűen három ilyen service van (Heal, Guard, Attack) és ebben van tárolva egy referencia az ellenfél seregére.
 
 ## Játékmenet
 
@@ -64,6 +64,7 @@ Ez is csak ajánlat, célszerű a Unitokat úgy belerakni az Army listájába, h
 ## Ötletek
 * Bármilyen egyéb mechanikát, metódust, osztályt írhatsz.
 * Írj egy aspectet, ami véletlenszerű critical healt/damaget indukál. Critical hit 20% valószínűséggel fordul elő, a critical szorzó egy véletlen szám 1 és 2 között.
+* Csinálhatsz egy strategy chaint, hogy egy ciklusban odaadod prioritás szerint (amit te döntesz el) a strategyket a service-nek és amint visszakapsz egy valid targetet, végrehajtod a műveletet
 * Ha egy unit meghal, logold ki, hogy ki ölte meg és mekkora volt a "gyilkos" hit. 
 
 ## Használandó technológiák:

@@ -51,7 +51,7 @@ Ezek csak ajánlatok, kitalálhatsz saját strategyket is.
 **Na de hogyan használjuk ezeket?**
 
 Minden **Army** objektumnak vannak servicei, amik kiszámolják egy adott strategy alapján, hogy adott unitnak mit kell tennie.
-Pl: **HealTargetService** -> `Unit getHealTarget(HealStrategy healStrategy)`. Értelemszerűen három ilyen service van (Heal, Guard, Attack) és ebben van tárolva egy referencia az ellenfél seregére.
+Pl: **HealTargetService** -> `Healable getHealTarget(HealStrategy healStrategy)`. Értelemszerűen három ilyen service van (Heal, Guard, Attack) és ebben van tárolva egy referencia az ellenfél seregére.
 
 ## Játékmenet
 
